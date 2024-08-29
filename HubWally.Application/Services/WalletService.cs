@@ -32,6 +32,11 @@ namespace HubWally.Application.Services
             return _repository.Get(id);
         }
 
+        public async Task<int> GetWalletsCountByOwner(string phoneNumber)
+        {
+            return await _repository.GetRecordCount("Owner", phoneNumber);
+        }
+
         public Task<int> UpdateWallet(Wallet entity)
         {
             return _repository.Update(entity);

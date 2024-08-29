@@ -12,7 +12,7 @@ namespace HubWally.Application.Services.IServices
         Task<int> AddWallet(Wallet entity);
         Task<IEnumerable<Wallet>> GetAllWallets();
         Task<Wallet> GetWallet(int id);
-        Task<Wallet> GetWalletsByOwner(string phoneNumber);
+        Task<int> GetWalletsCountByOwner(string phoneNumber);
         Task<int> UpdateWallet(Wallet entity);
         Task<int> DeleteWallet(int id);
     }
