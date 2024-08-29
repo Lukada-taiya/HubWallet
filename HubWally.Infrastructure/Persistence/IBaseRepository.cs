@@ -10,6 +10,7 @@ namespace HubWally.Infrastructure.Persistence
     public interface IBaseRepository<TEntity>
     {
         Task<int> Add(TEntity entity);
+        Task<int> GetRecordCount(string columnName, object columnValue);
         Task<IEnumerable<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes);
         Task<TEntity> Get(int id, params Expression<Func<TEntity, object>>[] includes);
         Task<TEntity> Get(string columnName, object columnValue, params Expression<Func<TEntity, object>>[] includes);

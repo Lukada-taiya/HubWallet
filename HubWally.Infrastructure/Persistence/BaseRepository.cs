@@ -12,41 +12,18 @@ namespace HubWally.Infrastructure.Persistence
     public class BaseRepository<TEntity>(AppDbContext context) : IBaseRepository<TEntity> where TEntity : class
     {
         private readonly AppDbContext _context = context;
-        public virtual async Task<int> Add(TEntity entity)
+        public async Task<int> Add(TEntity entity)
         {
-            var nameProperty = typeof(TEntity).GetProperty("Name");
+            var nameProperty = typeof(TEntity).GetProperty("AccountNumber");
             if (nameProperty is not null)
             {
                 var nameValue = nameProperty.GetValue(entity)?.ToString();
-                var recordExists = await _context.Set<TEntity>().AnyAsync(e => EF.Property<string>(e, "Name") == nameValue);
+                var recordExists = await _context.Set<TEntity>().AnyAsync(e => EF.Property<string>(e, "AccountNumber") == nameValue);
                 if (recordExists)
                 {
                     throw new InvalidOperationException("Record already exists.");
                 }
-            }
-
-            // Check if foreign keys exist
-            var properties = typeof(TEntity).GetProperties();
-            foreach (var property in properties)
-            {
-                if (Attribute.IsDefined(property, typeof(ForeignKeyAttribute)))
-                {
-                    var foreignKeyValue = property.GetValue(entity);
-                    if (foreignKeyValue != null)
-                    {
-                        //Removing id part of string to get correct entity type
-                        var nameOfEntity = property.Name[..^2];
-                        var foreignKeyProperty = typeof(TEntity).GetProperty(nameOfEntity);
-                        var foreignEntityType = foreignKeyProperty.PropertyType;
-                        var foreignEntity = await _context.FindAsync(foreignEntityType, foreignKeyValue);
-
-                        if (foreignEntity == null)
-                        {
-                            throw new InvalidOperationException($"Foreign key entity does not exist for property {property.Name} with value {foreignKeyValue}.");
-                        }
-                    }
-                }
-            }
+            }            
 
             await _context.AddAsync(entity);
             await _context.SaveChangesAsync();
@@ -65,6 +42,22 @@ namespace HubWally.Infrastructure.Persistence
             return await _context.SaveChangesAsync();
         }
 
+        public async Task<int> GetRecordCount(string columnName, object columnValue)
+        { 
+            var entityType = typeof(TEntity);
+            var property = entityType.GetProperty(columnName);
+
+            if (property == null)
+            {
+                throw new ArgumentException($"The column '{columnName}' does not exist in the entity '{entityType.Name}'.");
+            }
+
+            // Perform the duplicate check based on the provided column name and value
+            var recordExists = await _context.Set<TEntity>().CountAsync(e => EF.Property<object>(e, columnName).Equals(columnValue));
+
+            return recordExists;
+        }
+
         public async Task<TEntity> Get(int id, params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> query = _context.Set<TEntity>().AsNoTracking();
@@ -74,7 +67,8 @@ namespace HubWally.Infrastructure.Persistence
                 query = query.Include(include);
             }
 
-            return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
+            var res = await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
+            return res;
         }
 
         public async Task<TEntity> Get(string columnName, object columnValue, params Expression<Func<TEntity, object>>[] includes)
