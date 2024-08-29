@@ -7,10 +7,13 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using HubWally.Application.Services.IServices;
 using HubWally.Application.Services;
+using FluentValidation.AspNetCore;
+using HubWally.Application.DTOs.Wallets;
+using HubWally.Infrastructure.Persistence;
 
 namespace HubWally.Api.Configurations
 {
-    public static class ServiceCollection
+    public static class ServiceCollectionExtension
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
@@ -18,6 +21,7 @@ namespace HubWally.Api.Configurations
             {
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             return services;
         }
         public static IServiceCollection AddApplication(this IServiceCollection services)
@@ -25,6 +29,7 @@ namespace HubWally.Api.Configurations
             services.AddAutoMapper(typeof(Program).Assembly);
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IWalletService, WalletService>();
             return services;
         }
 
@@ -57,6 +62,10 @@ namespace HubWally.Api.Configurations
         public static IServiceCollection AddPresentation(this IServiceCollection services)
         {
             services.AddControllers();
+            //    .AddFluentValidation(fv =>
+            //{
+            //    fv.RegisterValidatorsFromAssemblyContaining<WalletDto>();
+            //}); 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(); 
             return services;
