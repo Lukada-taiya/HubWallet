@@ -5,13 +5,17 @@ VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{28857887-67E2-4739-96F0-6BFE88A7E7CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HubWally.Api", "HubWally.Api\HubWally.Api.csproj", "{DA059054-BDD8-47FF-BF8D-4D56F701C83D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HubWally.Api", "HubWally.Api\HubWally.Api.csproj", "{DA059054-BDD8-47FF-BF8D-4D56F701C83D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HubWally.Infrastructure", "HubWally.Infrastructure\HubWally.Infrastructure.csproj", "{F3C97373-7B21-4D7D-A0A9-F85411D755F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HubWally.Infrastructure", "HubWally.Infrastructure\HubWally.Infrastructure.csproj", "{F3C97373-7B21-4D7D-A0A9-F85411D755F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HubWally.Domain", "HubWally.Domain\HubWally.Domain.csproj", "{13ECCD03-9047-4680-9B80-5E3593AB98AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HubWally.Domain", "HubWally.Domain\HubWally.Domain.csproj", "{13ECCD03-9047-4680-9B80-5E3593AB98AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HubWally.Application", "HubWally.Application\HubWally.Application.csproj", "{44C35C3E-778A-4B61-AD46-0C8E63CC6E18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HubWally.Application", "HubWally.Application\HubWally.Application.csproj", "{44C35C3E-778A-4B61-AD46-0C8E63CC6E18}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E60EE038-B924-4D3D-9B2A-74FD132B8500}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HubWally.Application.Tests", "HubWally.Application.Tests\HubWally.Application.Tests.csproj", "{A9F9155B-56B9-41F0-A99F-2119A1E98A70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,10 @@ Global
 		{44C35C3E-778A-4B61-AD46-0C8E63CC6E18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44C35C3E-778A-4B61-AD46-0C8E63CC6E18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44C35C3E-778A-4B61-AD46-0C8E63CC6E18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9F9155B-56B9-41F0-A99F-2119A1E98A70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9F9155B-56B9-41F0-A99F-2119A1E98A70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9F9155B-56B9-41F0-A99F-2119A1E98A70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9F9155B-56B9-41F0-A99F-2119A1E98A70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +52,7 @@ Global
 		{F3C97373-7B21-4D7D-A0A9-F85411D755F3} = {28857887-67E2-4739-96F0-6BFE88A7E7CC}
 		{13ECCD03-9047-4680-9B80-5E3593AB98AE} = {28857887-67E2-4739-96F0-6BFE88A7E7CC}
 		{44C35C3E-778A-4B61-AD46-0C8E63CC6E18} = {28857887-67E2-4739-96F0-6BFE88A7E7CC}
+		{A9F9155B-56B9-41F0-A99F-2119A1E98A70} = {E60EE038-B924-4D3D-9B2A-74FD132B8500}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB64A46A-EB32-4C8A-819E-2236213EEC08}
