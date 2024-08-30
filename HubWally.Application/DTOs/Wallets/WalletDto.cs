@@ -24,24 +24,25 @@ namespace HubWally.Application.DTOs.Wallets
         public CreateWalletDtoValidator(IWalletService service)
         {
             _service = service;
-            RuleFor(w => w.Name).NotEmpty();
+            RuleFor(w => w.Name).NotNull().NotEmpty();
             RuleFor(w => w.Type).NotEmpty().Must(w => w == "momo" || w == "card")
             .WithMessage("Type must be either 'momo' or 'card'.");
-            RuleFor(w => w.AccountNumber).NotEmpty().MinimumLength(6).
+            RuleFor(w => w.AccountNumber).NotNull().NotEmpty().MinimumLength(6).
                 WithMessage("AccountNumber must not be less than 6 characters long.");
-            RuleFor(w => w.AccountScheme).NotEmpty().Must(w => w.ToLower() == "mastercard" || w.ToLower() == "mtn" || w.ToLower() == "vodafone" || w.ToLower() == "visa" || w.ToLower() == "airteltigo").
+            RuleFor(w => w.AccountScheme).NotNull().NotEmpty().Must(w => w.ToLower() == "mastercard" || w.ToLower() == "mtn" || w.ToLower() == "vodafone" || w.ToLower() == "visa" || w.ToLower() == "airteltigo").
                 WithMessage("AccountScheme must be visa, mastercard, mtn, vodafone, airteltigo");
             RuleFor(x => x.Owner)
+            .NotNull()
             .NotEmpty()
             .MinimumLength(6)
-            .MustAsync(async (userId, cancellation) => await HasLessThanSixRecordsAsync(userId))
+            .MustAsync(async (userId, cancellation) => await HasLessThanFiveRecordsAsync(userId))
             .WithMessage("User cannot have more than five wallets.");
         }
 
-        private async Task<bool> HasLessThanSixRecordsAsync (string owner)
+        private async Task<bool> HasLessThanFiveRecordsAsync (string owner)
         {
             var walletCount = await _service.GetWalletsCountByOwner(owner);
-            return walletCount <= 5;
+            return walletCount < 5;
         }
     }
     public class UpdateWalletDtoValidator : AbstractValidator<WalletDto>
