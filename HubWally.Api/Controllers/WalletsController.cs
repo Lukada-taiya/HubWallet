@@ -3,8 +3,7 @@ using HubWally.Application.DTOs.Wallets;
 using HubWally.Application.Queries.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization; 
 using Microsoft.AspNetCore.Mvc;
 
 namespace HubWally.Api.Controllers

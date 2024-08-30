@@ -1,8 +1,7 @@
 ﻿using HubWally.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;  
-using Microsoft.IdentityModel.Tokens; 
-using System;
+using Microsoft.IdentityModel.Tokens;  
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using HubWally.Application.Services.IServices;

@@ -1,12 +1,6 @@
 ﻿using HubWally.Application.Commands.Requests.Accounts;
 using HubWally.Application.Services.IServices;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
+using MediatR; 
 
 namespace HubWally.Application.Commands.RequestHandlers.Accounts
 {

@@ -6,12 +6,7 @@ using HubWally.Application.Queries.Requests;
 using HubWally.Application.Services.IServices;
 using HubWally.Application.Tests.Mocks;
 using Moq;
-using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Shouldly; 
 
 namespace HubWally.Application.Tests.Queries
 {

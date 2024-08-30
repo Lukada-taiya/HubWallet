@@ -1,18 +1,10 @@
-﻿using AutoMapper;
-using FluentValidation.Results;
-using HubWally.Api.Configurations;
+﻿using AutoMapper; 
 using HubWally.Application.Commands.RequestHandlers.Wallets;
-using HubWally.Application.Commands.Requests.Wallets;
-using HubWally.Application.DTOs.Wallets;
+using HubWally.Application.Commands.Requests.Wallets; 
 using HubWally.Application.Services.IServices;
 using HubWally.Application.Tests.Mocks;
 using Moq;
-using Shouldly;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Shouldly; 
 
 namespace HubWally.Application.Tests.Commands
 {

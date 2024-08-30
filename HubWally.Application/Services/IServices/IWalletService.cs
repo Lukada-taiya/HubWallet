@@ -1,9 +1,4 @@
-﻿using HubWally.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HubWally.Domain.Models; 
 
 namespace HubWally.Application.Services.IServices
 {

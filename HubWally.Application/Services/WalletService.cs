@@ -1,11 +1,6 @@
 ﻿using HubWally.Application.Services.IServices;
 using HubWally.Domain.Models;
-using HubWally.Infrastructure.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HubWally.Infrastructure.Persistence; 
 
 namespace HubWally.Application.Services
 {
