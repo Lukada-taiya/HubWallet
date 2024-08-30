@@ -14,5 +14,6 @@ namespace HubWally.Application.DTOs.Wallets
         public string? AccountNumber { get; set; }
         public string AccountScheme { get; set; }
         public string Owner { get; set; }
+        public DateTime? Created_At { get; set; }
     }
 }
