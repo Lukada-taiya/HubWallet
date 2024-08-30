@@ -10,7 +10,7 @@ using System.Transactions;
 
 namespace HubWally.Application.Commands.RequestHandlers.Wallets
 {
-    public class DeleteCommandHandler(IWalletService service) : IRequestHandler<DeleteWalletCommand, ApiResponse>
+    public class DeleteWalletCommandHandler(IWalletService service) : IRequestHandler<DeleteWalletCommand, ApiResponse>
     {
         private readonly IWalletService _service = service;
         public async Task<ApiResponse> Handle(DeleteWalletCommand request, CancellationToken cancellationToken)
