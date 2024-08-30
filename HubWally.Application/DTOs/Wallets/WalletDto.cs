@@ -32,6 +32,13 @@ namespace HubWally.Application.DTOs.Wallets
             .MinimumLength(6)
             .MustAsync(async (userId, cancellation) => await HasLessThanFiveRecordsAsync(userId))
             .WithMessage("User cannot have more than five wallets.");
+
+            When(w => w.Type == "card", () =>
+            {
+                RuleFor(w => w.AccountNumber)
+                    .CreditCard()
+                    .WithMessage("Invalid credit card number.");
+            });
         }
 
         private async Task<bool> HasLessThanFiveRecordsAsync (string owner)
@@ -54,6 +61,13 @@ namespace HubWally.Application.DTOs.Wallets
             RuleFor(x => x.Owner)
             .NotEmpty()
             .MinimumLength(6);
+
+            When(w => w.Type == "card", () =>
+            {
+                RuleFor(w => w.AccountNumber)
+                    .CreditCard()
+                    .WithMessage("Invalid credit card number.");
+            });
         }
     }
 

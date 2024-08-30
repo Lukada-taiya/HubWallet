@@ -1,5 +1,6 @@
 ﻿using HubWally.Application.Commands.Requests.Accounts;
 using HubWally.Application.Services.IServices;
+using MediatR;
 
 namespace HubWally.Application.Commands.RequestHandlers.Accounts
 {
