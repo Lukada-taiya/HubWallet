@@ -2,7 +2,7 @@ using HubWally.Api.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddInfrastructure(builder.Configuration).AddApplication().AddAuth().AddPresentation();
+builder.Services.AddInfrastructure(builder.Configuration).AddApplication().AddAuth(builder.Configuration).AddPresentation();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

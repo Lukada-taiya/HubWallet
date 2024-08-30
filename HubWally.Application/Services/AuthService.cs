@@ -9,14 +9,16 @@ using System.Text;
 using HubWally.Application.Services.IServices;
 using Microsoft.AspNetCore.Identity; 
 using Microsoft.EntityFrameworkCore;
-using JwtRegisteredClaimNames = System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames; 
+using JwtRegisteredClaimNames = System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames;
+using Microsoft.Extensions.Configuration;
 
 namespace HubWally.Application.Services
 {
-    public class AuthService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager) : IAuthService
+    public class AuthService(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IConfiguration configuration) : IAuthService
     {
         private readonly UserManager<IdentityUser> _userManager = userManager;
         private readonly SignInManager<IdentityUser> _signInManager = signInManager;
+        private readonly IConfiguration _configuration = configuration;
 
         public async Task<IdentityResult> Register(RegisterDto model)
         {
@@ -45,20 +47,19 @@ namespace HubWally.Application.Services
             return null;
         }
 
-        private static string GenerateJwtToken(IdentityUser user)
+        private string GenerateJwtToken(IdentityUser user)
         {
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("kd5 4kejqwlkejalkejaj439oejf,xcm")); //TODO: move secret key to appsettings.json
+            }; 
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                issuer: "hubwally.com",
-                audience: "hubwally.com",
+                issuer: _configuration["JwtSettings:Issuer"],
+                audience: _configuration["JwtSettings:Audience"],
                 claims: claims,
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: creds);

@@ -6,10 +6,9 @@ using System;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using HubWally.Application.Services.IServices;
-using HubWally.Application.Services;
-using FluentValidation.AspNetCore;
-using HubWally.Application.DTOs.Wallets;
+using HubWally.Application.Services; 
 using HubWally.Infrastructure.Persistence;
+using Microsoft.OpenApi.Models;
 
 namespace HubWally.Api.Configurations
 {
@@ -33,8 +32,10 @@ namespace HubWally.Api.Configurations
             return services;
         }
 
-        public static IServiceCollection AddAuth(this IServiceCollection services)
+        public static IServiceCollection AddAuth(this IServiceCollection services, IConfiguration configuration)
         {
+            var jwtSettings = configuration.GetSection("JwtSettings");
+            var ei = jwtSettings["Key"];
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -48,9 +49,9 @@ namespace HubWally.Api.Configurations
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = "hubwally.com",
-                    ValidAudience = "hubwally.com",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("j3q8jfkd5uioaejrkdf m4oijmsi4")) //TODO: Move secret key to appsettings.json
+                    ValidIssuer = jwtSettings["Issuer"],
+                    ValidAudience = jwtSettings["Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]))
                 };
             });
 
@@ -61,13 +62,34 @@ namespace HubWally.Api.Configurations
         }
         public static IServiceCollection AddPresentation(this IServiceCollection services)
         {
-            services.AddControllers();
-            //    .AddFluentValidation(fv =>
-            //{
-            //    fv.RegisterValidatorsFromAssemblyContaining<WalletDto>();
-            //}); 
+            services.AddControllers(); 
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen(); 
+            services.AddSwaggerGen(opt =>
+            {
+                opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer"
+                });
+                opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[]{}
+                    }
+                });
+            }); 
             return services;
         }
 
