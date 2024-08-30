@@ -9,8 +9,11 @@ namespace HubWally.Api.Controllers
     [Route("api/[controller]")]
     public class AccountController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator = mediator;       
+        private readonly IMediator _mediator = mediator;
 
+        /// <summary>
+        /// Signs user up into the system.
+        ///</summary>
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
@@ -28,6 +31,10 @@ namespace HubWally.Api.Controllers
 
             return BadRequest(ModelState);
         }
+
+        /// <summary>
+        /// Signs user into the system
+        ///</summary>
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {

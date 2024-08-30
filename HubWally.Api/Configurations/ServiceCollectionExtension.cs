@@ -9,6 +9,7 @@ using HubWally.Application.Services.IServices;
 using HubWally.Application.Services; 
 using HubWally.Infrastructure.Persistence;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace HubWally.Api.Configurations
 {
@@ -66,6 +67,9 @@ namespace HubWally.Api.Configurations
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(opt =>
             {
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                opt.IncludeXmlComments(xmlPath);
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,

@@ -16,6 +16,10 @@ namespace HubWally.Api.Controllers
     {
         private readonly IMediator _mediator = mediator;
 
+        /// <summary>
+        /// Adds a new wallet.
+        /// </summary>
+        /// <returns>Returns an object response with newly created id.</returns>
         [HttpPost("AddWallet")]
         public async Task<IActionResult> Add(WalletDto wallet)
         {
@@ -33,6 +37,11 @@ namespace HubWally.Api.Controllers
 
             return BadRequest(ModelState);
         }
+
+        /// <summary>
+        /// Modifies an already existing wallet.
+        ///</summary>
+        ///<returns>Returns an object response with success key of true.</returns>
         [HttpPut("UpdateWallet/{id:int}")]
         public async Task<IActionResult> Update(int id, WalletDto wallet)
         {
@@ -50,6 +59,11 @@ namespace HubWally.Api.Controllers
 
             return BadRequest(ModelState);
         }
+
+        /// <summary>
+        /// Retrieve a wallet based on its id.
+        ///</summary>
+        ///<returns>Returns an object response with returns an object with the requested wallet.</returns>
         [HttpGet("GetWalletById")]
         public async Task<IActionResult> Get(int id)
         {
@@ -67,6 +81,11 @@ namespace HubWally.Api.Controllers
 
             return BadRequest(ModelState);
         }
+
+        /// <summary>
+        /// Retrieves all wallets.
+        ///</summary>
+        ///<returns>Returns an object response with all wallets.</returns>
         [HttpGet("GetAllWallets")]
         public async Task<IActionResult> GetAll()
         {
@@ -84,6 +103,11 @@ namespace HubWally.Api.Controllers
 
             return BadRequest(ModelState);
         }
+
+        /// <summary>
+        /// Deletes an already existing wallet.
+        ///</summary>
+        ///<returns>Returns an object response with success key of true.</returns>
         [HttpDelete("DeleteWallet/{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
