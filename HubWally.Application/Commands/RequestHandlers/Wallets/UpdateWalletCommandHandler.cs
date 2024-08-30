@@ -23,7 +23,7 @@ namespace HubWally.Application.Commands.RequestHandlers.Wallets
             try
             {
                 var validator = new UpdateWalletDtoValidator();
-                var validationResult = await validator.ValidateAsync(request.walletDto);
+                var validationResult = validator.Validate(request.walletDto);
                 if (!validationResult.IsValid)
                 {
                     return new()
