@@ -34,7 +34,7 @@ namespace HubWally.Application.Tests.Commands
             var walletDto = new WalletDto
             {
                 Name = "My Item",
-                AccountNumber = "495203459482093485",
+                AccountNumber = "42424242424242",
                 AccountScheme = "visa",
                 Type = "card",
                 Owner = "0558808984"
