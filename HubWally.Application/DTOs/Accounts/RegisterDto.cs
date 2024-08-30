@@ -11,6 +11,7 @@ namespace HubWally.Application.DTOs.Accounts
     {
         [Required]
         [Phone]
+        [MinLength(6)]
         public string PhoneNumber { get; set; }
 
         [Required]
