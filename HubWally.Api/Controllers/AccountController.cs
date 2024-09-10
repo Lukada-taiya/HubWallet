@@ -1,4 +1,6 @@
-﻿using HubWally.Application.Commands.Requests.Accounts;
+﻿using System.Net.Mime;
+using HubWally.Application;
+using HubWally.Application.Commands.Requests.Accounts;
 using HubWally.Application.DTOs.Accounts;
 using MediatR;  
 using Microsoft.AspNetCore.Mvc; 
@@ -13,7 +15,24 @@ namespace HubWally.Api.Controllers
 
         /// <summary>
         /// Signs user up into the system.
-        ///</summary>
+        /// </summary> 
+        /// <param name="registerDto">The object containing the details to register user</param>
+        /// <returns>Success response</returns>
+        /// <remarks>
+        /// The <paramref name="registerDto"/> contains the following properties:
+        /// <ul>
+        /// <li><description><c>PhoneNumber</c> - Mobile number of user to be registered</description></li>
+        /// <li><description><c>Password</c> - Password for the user</description></li> 
+        /// </ul>
+        /// </remarks>
+        /// <response code="200">Returns a success api response</response>
+        /// <response code="400">Invalid payload values passed</response>
+        /// <response code="500">An error occurred registering user</response> 
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type =
+            typeof(ApiResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
@@ -34,7 +53,24 @@ namespace HubWally.Api.Controllers
 
         /// <summary>
         /// Signs user into the system
-        ///</summary>
+        /// </summary>
+        /// <param name="loginDto">The object containing the details to login user</param>
+        /// <returns>Success response</returns>
+        /// <remarks>
+        /// The <paramref name="loginDto"/> contains the following properties:
+        /// <ul>
+        /// <li><description><c>PhoneNumber</c> - Mobile number of user to be logged in</description></li>
+        /// <li><description><c>Password</c> - Login Password of the user</description></li> 
+        /// </ul>
+        /// </remarks>
+        /// <response code="200">Returns a success api response with login token</response>
+        /// <response code="400">Invalid payload values passed</response>
+        /// <response code="500">An error occurred login user in</response> 
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type =
+            typeof(ApiResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
